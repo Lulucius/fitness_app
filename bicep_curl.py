@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 import pose_module as pm
-#from firebase import upload_video
+from firebase import upload_video
 
 def analyze_bicep_curl(video_path=0, left=False, is_showed=True):
     cap = cv2.VideoCapture(video_path)
@@ -34,9 +34,9 @@ def analyze_bicep_curl(video_path=0, left=False, is_showed=True):
     cap.release()
     cv2.destroyAllWindows()
     out.release()
-    # print("Released")
-    # final_url = upload_video(output_path)
-    # return final_url
+    print("Released")
+    final_url = upload_video(output_path)
+    return final_url
 
 class BicepCurl:
     def __init__(self):
@@ -57,7 +57,7 @@ class BicepCurl:
             if left:
                 angle = self.detector.find_angle(img, 11, 13, 15)
             else:
-                angle = self.detector.find_angle(img, 11, 13, 15)
+                angle = self.detector.find_angle(img, 12, 14, 16)
             percentage = np.interp(angle, (25, 155), (0, 100))
         
 
@@ -66,6 +66,7 @@ class BicepCurl:
                 if self.prev_per > percentage:
                     self.e += 1
                     if self.e == 30:
+                        print("Lift your arm higher")
                         self.error_messages.append("Lift your arm higher")
                         self.error_times.append(time.time())
                         self.e = 0
@@ -74,6 +75,7 @@ class BicepCurl:
                 if self.prev_per < percentage:
                     self.e += 1
                     if self.e == 30:
+                        print("Put your arm all the way down")
                         self.error_messages.append("Put your arm all the way down")
                         self.error_times.append(time.time())
                         self.e = 0
@@ -103,8 +105,6 @@ class BicepCurl:
                 del self.error_times[i]
         
         for i, error in enumerate(self.error_messages):
-            cv2.putText(img, error, (50, 100 * i * 50), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 4)
+            cv2.putText(img, error, (00,185), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 0), 4)
             cv2.putText(img, str(self.count), (600, 100), cv2.FONT_HERSHEY_PLAIN, 5, (255, 0, 0), 4)
         return img
-
-analyze_bicep_curl("bad_bicep_curl_ex.mov") 
