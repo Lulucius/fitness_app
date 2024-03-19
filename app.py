@@ -21,15 +21,32 @@ def create_start_screen():
     title_label1.pack(pady=(10, 0))
 
 
-    button1 = tk.Button(start_screen, text= "Log In", font=("Helvetica", 24))
-    button1.pack(pady=(500, 5))
+    image = Image.open("/Users/luciuszha/Desktop/Coding Extras/logo_image.jpg")
+    image = image.resize((400, 225))
 
-    button2 = tk.Button(start_screen, text= "Sign Up", font=("Helvetica", 24))
-    button2.pack(pady=(5, 5))
+    image = ImageTk.PhotoImage(image)
+    image_label = tk.Label(start_screen, image=image)
+    image_label.image = image
+    image_label.pack()
+
+    # button1 = tk.Button(start_screen, text= "Enter", font=("Helvetica", 24))
+    # button1.pack(pady=(5, 5))
+
+    button_frame = tk.Frame(start_screen)
+    button_frame.pack(pady=20)
+
+    push_up_button = tk.Button(button_frame, text="Push-ups", command=lambda: build_exercise_screen(exercise_type='pushups', start_screen=start_screen))
+    push_up_button.pack(padx = 10)
 
 
     version_label = tk.Label(start_screen, text="ver 0.00010011", font=("Helvetica", 10))
     version_label.pack(pady=(10, 0))
+
+
+def build_exercise_screen(exercise_type, start_screen, is_left = None):
+    if exercise_type == 'pushups':
+        print("Pushups")
+
 
 
     
