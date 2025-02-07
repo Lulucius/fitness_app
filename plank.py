@@ -68,7 +68,7 @@ class Plank:
             hipAngle = self.detector.find_angle(img, 12, 24, 26)
             legAngle = self.detector.find_angle(img, 24, 26, 28)
 
-            if not 75 <= elbowAngle <= 105:
+            if not 65 <= elbowAngle <= 90:
                 self.elbow_error += 1
             if self.elbow_error == n_frame_in_two_sec:
                 print("Bring your shoulder vertically above your elbow")
@@ -76,14 +76,14 @@ class Plank:
                 self.elbow_error = 0
 
 
-            if hipAngle < 155:
+            if hipAngle < 140:
                 self.hip_error += 1
             if self.hip_error == n_frame_in_two_sec:
                 print("Make your back staight. Bring your buttocks DOWN")
                 self.hip_feedback = "Make your back straight. Bring your buttocks DOWN"
                 self.hip_error = 0
             
-            if hipAngle > 175:
+            if hipAngle > 190:
                 self.hip_error += 1
             if self.hip_error == n_frame_in_two_sec:
                 print("Make your back staight. Bring your buttocks UP")
@@ -91,7 +91,7 @@ class Plank:
                 self.hip_error = 0
 
 
-            if legAngle < 160:
+            if legAngle < 150:
                 self.leg_error += 1
             if self.leg_error == n_frame_in_two_sec:
                 print("Make your legs straighter")
@@ -99,9 +99,9 @@ class Plank:
                 self.leg_error = 0
 
 
-            if 75 <= elbowAngle <= 105:
-                if 155 < hipAngle < 175:
-                    if legAngle >160:
+            if 65 <= elbowAngle <= 90:
+                if 140 < hipAngle < 190:
+                    if legAngle >150:
                         print("You have good form")
                         self.overall_feedback = ("You have good form")
                     else:

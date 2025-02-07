@@ -19,17 +19,18 @@ def create_start_screen():
     start_screen.configure(bg="white")
 
     title_label1 = tk.Label(start_screen, text="FitPose", font=("Helvetica", 30))
-
+    title_label1.config(background="White")
+    title_label1.config(foreground="Black")
     title_label1.pack(pady=(20, 10))
 
 
     image = Image.open("/Users/luciuszha/Downloads/dumbell_logo.jpeg")
-    image = image.resize((400, 225))
+    image = image.resize((300, 175))
 
     image = ImageTk.PhotoImage(image)
     image_label = tk.Label(start_screen, image=image)
     image_label.image = image
-    image_label.pack()
+    image_label.pack(pady= 30)
 
     # button1 = tk.Button(start_screen, text= "Enter", font=("Helvetica", 24))
     # button1.pack(pady=(5, 5))
@@ -37,11 +38,10 @@ def create_start_screen():
     button_frame = tk.Frame(start_screen)
     button_frame.pack(pady=20)
 
-    push_up_button = tk.Button(button_frame, text="Pushups", command=lambda: build_exercise_screen(exercise_type='pushups', start_screen=start_screen), fg="black")
+    push_up_button = tk.Button(button_frame, text="Pushups", command=lambda: build_exercise_screen(exercise_type='pushups', start_screen=start_screen))
     push_up_button.config(height = 2, width = 100)
     push_up_button.config(font = ("Helvetica", 22))
     push_up_button.pack(pady = (0, 10))
-    push_up_button.config(bg="black")
 
     bicep_curl_button = tk.Button(button_frame, text="Bicep Curls", command=lambda: build_exercise_screen(exercise_type='bicep_curl', start_screen=start_screen))
     bicep_curl_button.config(height = 2, width = 100)
@@ -60,6 +60,8 @@ def create_start_screen():
 
 
     version_label = tk.Label(start_screen, text="ver 0.00010011", font=("Helvetica", 10))
+    version_label.config(background="White")
+    version_label.config(foreground="Black")
     version_label.pack(pady=(10, 0))
 
 
@@ -107,11 +109,11 @@ def build_exercise_screen(exercise_type, start_screen, is_left = None):
 
     # create frame for buttons
     button_frame = tk.Frame(exercise_screen)
-    button_frame.pack(side=tk.LEFT, padx = 10)
+    button_frame.pack(side=tk.LEFT, padx = 5)
 
     # create button to start exercise
-    start_button = tk.Button(button_frame, text="Start Exercise", command=start)
-    start_button.pack(side=tk.LEFT, padx = 10)
+    start_button = tk.Button(button_frame, text="Start Exercise", command=start, font=("Helvetica", 18))
+    start_button.pack(side=tk.LEFT, padx = 5)
 
     update()
     exercise_screen.mainloop()
